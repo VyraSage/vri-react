@@ -5,13 +5,9 @@ import path from "path"
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: path.join(__dirname, "dist"), // Changed from "_static" to "dist"
+    outDir: path.join(__dirname, "dist"),
     rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', '@mui/material'],
-        },
-      },
+      external: [], // Remove any external dependencies here
     },
   },
   resolve: {
