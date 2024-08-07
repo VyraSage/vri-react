@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
-import { fetchData } from '../services/api';
+import { postUserQuestion } from '../services/api';
 import FeedbackDialog from './FeedbackDialog';
 
 const CopilotInterface = () => {
@@ -16,7 +16,7 @@ const CopilotInterface = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const data = await fetchData(question);
+      const data = await postUserQuestion(question);
       setResponse(data);
     } catch (error) {
       console.error('Error fetching data:', error);
