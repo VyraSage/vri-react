@@ -6,15 +6,31 @@ import {
   Typography,
   Paper,
   Container,
+  CircularProgress,
 } from '@mui/material';
+import { postUserQuestion } from '../services/api';
 
 const CopilotInterface = () => {
   const [userQuestion, setUserQuestion] = useState('');
+  const [generatedSQL, setGeneratedSQL] = useState('');
+  const [response, setResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle submission logic here
-    console.log('Submitted question:', userQuestion);
+    setIsLoading(true);
+    setGeneratedSQL('');
+    setResponse('');
+
+    try {
+      const data = await postUserQuestion(userQuestion);
+      setGeneratedSQL(data.generated_sql);
+      setResponse(data.llm_summarization);
+    } catch (error) {
+      setResponse(`Error: ${error.response?.status || 'Unknown'} - ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -39,8 +55,9 @@ const CopilotInterface = () => {
             color="primary"
             size="large"
             sx={{ mt: 2 }}
+            disabled={isLoading}
           >
-            Submit
+            {isLoading ? <CircularProgress size={24} /> : 'Submit'}
           </Button>
         </form>
         <Box sx={{ mt: 4 }}>
@@ -56,6 +73,7 @@ const CopilotInterface = () => {
             InputProps={{
               readOnly: true,
             }}
+            value={generatedSQL}
           />
         </Box>
         <Box sx={{ mt: 4 }}>
@@ -71,6 +89,7 @@ const CopilotInterface = () => {
             InputProps={{
               readOnly: true,
             }}
+            value={response}
           />
         </Box>
       </Paper>
