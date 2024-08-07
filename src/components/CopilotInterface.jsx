@@ -1,99 +1,70 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Paper,
-  Container,
-  CircularProgress,
-} from '@mui/material';
-import { postUserQuestion } from '../services/api';
+import { TextField, Button, Box, Typography, Paper } from '@mui/material';
+import FeedbackDialog from './FeedbackDialog';
 
 const CopilotInterface = () => {
-  const [userQuestion, setUserQuestion] = useState('');
-  const [generatedSQL, setGeneratedSQL] = useState('');
+  const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [openFeedback, setOpenFeedback] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setGeneratedSQL('');
-    setResponse('');
-
-    try {
-      const data = await postUserQuestion(userQuestion);
-      setGeneratedSQL(data.generated_sql);
-      setResponse(data.llm_summarization);
-    } catch (error) {
-      setResponse(`Error: ${error.response?.status || 'Unknown'} - ${error.message}`);
-    } finally {
+    // Simulating API call
+    setTimeout(() => {
+      setResponse(`Here's a simulated response to your question: "${question}"`);
       setIsLoading(false);
-    }
+    }, 1000);
+  };
+
+  const handleFeedbackOpen = () => {
+    setOpenFeedback(true);
+  };
+
+  const handleFeedbackClose = () => {
+    setOpenFeedback(false);
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Vyrasage Co-Pilot
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="User Question"
-            placeholder="What's on your mind? Write a detailed question and Vyrasage Co-Pilot will query your data and give you real time answers."
-            value={userQuestion}
-            onChange={(e) => setUserQuestion(e.target.value)}
-            margin="normal"
-          />
+    <Paper elevation={3} sx={{ p: 4, maxWidth: 600, width: '100%' }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Vyrasage Co-Pilot
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="Ask a question"
+          variant="outlined"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          margin="normal"
+        />
+        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            size="large"
-            sx={{ mt: 2 }}
             disabled={isLoading}
           >
-            {isLoading ? <CircularProgress size={24} /> : 'Submit'}
+            {isLoading ? 'Processing...' : 'Submit'}
           </Button>
-        </form>
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="h6" gutterBottom>
-            Generated SQL
-          </Typography>
-          <TextField
-            fullWidth
+          <Button
             variant="outlined"
-            multiline
-            rows={4}
-            placeholder="Generated SQL will be placed here."
-            InputProps={{
-              readOnly: true,
-            }}
-            value={generatedSQL}
-          />
+            color="primary"
+            onClick={handleFeedbackOpen}
+          >
+            Feedback
+          </Button>
         </Box>
-        <Box sx={{ mt: 4 }}>
-          <Typography variant="h6" gutterBottom>
-            Response
-          </Typography>
-          <TextField
-            fullWidth
-            variant="outlined"
-            multiline
-            rows={6}
-            placeholder="Responses from the Vyrasage Co-Pilot will be placed here."
-            InputProps={{
-              readOnly: true,
-            }}
-            value={response}
-          />
-        </Box>
-      </Paper>
-    </Container>
+      </form>
+      {response && (
+        <Typography sx={{ mt: 2 }} variant="body1">
+          {response}
+        </Typography>
+      )}
+      <FeedbackDialog open={openFeedback} onClose={handleFeedbackClose} />
+    </Paper>
   );
 };
 
