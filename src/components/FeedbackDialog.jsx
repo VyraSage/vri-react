@@ -15,11 +15,10 @@ import {
 } from '@mui/material';
 
 const FeedbackDialog = ({ open, onClose }) => {
-  const [llmStep, setLlmStep] = useState('sql');
+  const [llmStep, setLlmStep] = useState('');
 
   const handleSubmit = () => {
-    // Here you would handle the submission of feedback
-    // For now, we'll just close the dialog
+    // TODO: Implement feedback submission logic
     onClose();
   };
 
@@ -31,12 +30,11 @@ const FeedbackDialog = ({ open, onClose }) => {
           <FormLabel component="legend">LLM Step</FormLabel>
           <RadioGroup
             row
-            name="llm-step"
             value={llmStep}
             onChange={(e) => setLlmStep(e.target.value)}
           >
-            <FormControlLabel value="sql" control={<Radio />} label="SQL Select" />
-            <FormControlLabel value="llm" control={<Radio />} label="LLM Summary" />
+            <FormControlLabel value="sqlSelect" control={<Radio />} label="SQL Select" />
+            <FormControlLabel value="llmSummary" control={<Radio />} label="LLM Summary" />
           </RadioGroup>
         </FormControl>
 
@@ -46,9 +44,9 @@ const FeedbackDialog = ({ open, onClose }) => {
         <TextField
           fullWidth
           variant="outlined"
-          disabled
-          value="The original question"
           margin="normal"
+          InputProps={{ readOnly: true }}
+          value="The original question"
         />
 
         <Typography variant="subtitle1" gutterBottom>
@@ -57,9 +55,9 @@ const FeedbackDialog = ({ open, onClose }) => {
         <TextField
           fullWidth
           variant="outlined"
-          disabled
-          value="SQL Output"
           margin="normal"
+          InputProps={{ readOnly: true }}
+          value="SQL Output"
         />
 
         <Typography variant="subtitle1" gutterBottom>
@@ -68,27 +66,29 @@ const FeedbackDialog = ({ open, onClose }) => {
         <TextField
           fullWidth
           variant="outlined"
-          disabled
-          value="LLM Summary"
           margin="normal"
+          InputProps={{ readOnly: true }}
+          value="LLM Summary"
         />
 
         <TextField
           fullWidth
+          variant="outlined"
+          margin="normal"
           label="What did you like about the response?"
           placeholder="Write about the positive attributes of the LLM Response"
           multiline
-          rows={4}
-          margin="normal"
+          rows={3}
         />
 
         <TextField
           fullWidth
+          variant="outlined"
+          margin="normal"
           label="Tell us what needs to be improved"
           placeholder="Describe the improvements"
           multiline
-          rows={4}
-          margin="normal"
+          rows={3}
         />
       </DialogContent>
       <DialogActions>

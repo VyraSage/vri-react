@@ -1,70 +1,80 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, Paper } from '@mui/material';
+import { TextField, Button, Box, Typography } from '@mui/material';
+import { fetchData } from '../services/api';
 import FeedbackDialog from './FeedbackDialog';
 
 const CopilotInterface = () => {
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [openFeedback, setOpenFeedback] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    // Simulating API call
-    setTimeout(() => {
-      setResponse(`Here's a simulated response to your question: "${question}"`);
-      setIsLoading(false);
-    }, 1000);
+  const handleQuestionChange = (event) => {
+    setQuestion(event.target.value);
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchData(question);
+      setResponse(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setResponse('An error occurred while fetching the response.');
+    }
+    setLoading(false);
   };
 
   const handleFeedbackOpen = () => {
-    setOpenFeedback(true);
+    setFeedbackOpen(true);
   };
 
   const handleFeedbackClose = () => {
-    setOpenFeedback(false);
+    setFeedbackOpen(false);
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 4, maxWidth: 600, width: '100%' }}>
-      <Typography variant="h4" component="h1" gutterBottom>
+    <Box sx={{ width: '100%', maxWidth: 600, p: 2 }}>
+      <Typography variant="h4" gutterBottom>
         Vyrasage Co-Pilot
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          fullWidth
-          label="Ask a question"
-          variant="outlined"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          margin="normal"
-        />
-        <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Processing...' : 'Submit'}
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleFeedbackOpen}
-          >
-            Feedback
-          </Button>
-        </Box>
-      </form>
-      {response && (
-        <Typography sx={{ mt: 2 }} variant="body1">
-          {response}
-        </Typography>
-      )}
-      <FeedbackDialog open={openFeedback} onClose={handleFeedbackClose} />
-    </Paper>
+      <TextField
+        fullWidth
+        label="Ask a question"
+        variant="outlined"
+        value={question}
+        onChange={handleQuestionChange}
+        margin="normal"
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+        disabled={loading}
+        sx={{ mt: 2, mb: 2 }}
+      >
+        {loading ? 'Loading...' : 'Submit'}
+      </Button>
+      <TextField
+        fullWidth
+        label="Response"
+        variant="outlined"
+        value={response}
+        multiline
+        rows={4}
+        InputProps={{ readOnly: true }}
+        margin="normal"
+      />
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={handleFeedbackOpen}
+        sx={{ mt: 2 }}
+      >
+        Feedback
+      </Button>
+      <FeedbackDialog open={feedbackOpen} onClose={handleFeedbackClose} />
+    </Box>
   );
 };
 
