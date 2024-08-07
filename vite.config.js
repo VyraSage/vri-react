@@ -6,6 +6,9 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: path.join(__dirname, "_static")
-  }
+    outDir: path.join(__dirname, "_static"),
+    rollupOptions: {
+      external: ['@mui/material'], // Exclude @mui/material from external dependencies
+    },
+  },
 })
