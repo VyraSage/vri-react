@@ -1,20 +1,21 @@
 {
-  "name": "sample-vite-react",
-  "version": "1.0.2",
-  "private": true,
+  "name": "vyrasage-copilot",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "start": "serve -s dist -l tcp://0.0.0.0:$PORT -n",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "dev": "vite",
-    "preview": "vite preview",
-    "start": "vite preview"
+    "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@mui/material": "^5.13.7",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0"
+    "serve": "^14.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -23,6 +24,7 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
     "vite": "^4.4.5"
   }
 }

@@ -1,14 +1,22 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from "path";
+import path from "path"
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: path.join(__dirname, "_static"),
+    outDir: path.join(__dirname, "dist"), // Changed from "_static" to "dist"
     rollupOptions: {
-      external: ['@mui/material'], // Exclude @mui/material from external dependencies
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', '@mui/material'],
+        },
+      },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 })
