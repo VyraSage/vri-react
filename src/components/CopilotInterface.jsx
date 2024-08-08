@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography } from '@mui/material';
+import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material';
 import { postUserQuestion } from '../services/api';
 import FeedbackDialog from './FeedbackDialog';
 
 const CopilotInterface = () => {
   const [question, setQuestion] = useState('');
-  const [response, setResponse] = useState('');
+  const [generatedSQL, setGeneratedSQL] = useState('');
+  const [llmSummarization, setLlmSummarization] = useState('');
   const [loading, setLoading] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
 
@@ -17,10 +18,12 @@ const CopilotInterface = () => {
     setLoading(true);
     try {
       const data = await postUserQuestion(question);
-      setResponse(data);
+      setGeneratedSQL(data.generated_sql || '');
+      setLlmSummarization(data.llm_summarization || '');
     } catch (error) {
       console.error('Error fetching data:', error);
-      setResponse('An error occurred while fetching the response.');
+      setGeneratedSQL('An error occurred while fetching the response.');
+      setLlmSummarization('');
     }
     setLoading(false);
   };
@@ -34,7 +37,7 @@ const CopilotInterface = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 600, p: 2 }}>
+    <Box sx={{ width: '100%', maxWidth: 800, p: 2 }}>
       <Typography variant="h4" gutterBottom>
         Vyrasage Co-Pilot
       </Typography>
@@ -53,13 +56,23 @@ const CopilotInterface = () => {
         disabled={loading}
         sx={{ mt: 2, mb: 2 }}
       >
-        {loading ? 'Loading...' : 'Submit'}
+        {loading ? <CircularProgress size={24} /> : 'Submit'}
       </Button>
       <TextField
         fullWidth
-        label="Response"
+        label="Generated SQL"
         variant="outlined"
-        value={response}
+        value={generatedSQL}
+        multiline
+        rows={4}
+        InputProps={{ readOnly: true }}
+        margin="normal"
+      />
+      <TextField
+        fullWidth
+        label="LLM Summarization"
+        variant="outlined"
+        value={llmSummarization}
         multiline
         rows={4}
         InputProps={{ readOnly: true }}
