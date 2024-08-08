@@ -46,6 +46,7 @@ const FeedbackDialog = ({ open, onClose }) => {
           variant="outlined"
           margin="normal"
           InputProps={{ readOnly: true }}
+          label="The original question"
           value="The original question"
         />
 
@@ -57,6 +58,7 @@ const FeedbackDialog = ({ open, onClose }) => {
           variant="outlined"
           margin="normal"
           InputProps={{ readOnly: true }}
+          label="SQL Output"
           value="SQL Output"
         />
 
@@ -68,6 +70,7 @@ const FeedbackDialog = ({ open, onClose }) => {
           variant="outlined"
           margin="normal"
           InputProps={{ readOnly: true }}
+          label="LLM Summary"
           value="LLM Summary"
         />
 
