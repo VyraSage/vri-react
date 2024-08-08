@@ -1,3 +1,5 @@
+// src/components/FeedbackDialog.jsx
+
 import React, { useState } from 'react';
 import {
   Dialog,
@@ -13,13 +15,33 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { submitFeedback } from '../services/api'; // Import the new API function
+import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating correlation_id
 
-const FeedbackDialog = ({ open, onClose }) => {
+const FeedbackDialog = ({ open, onClose, question, generatedSQL, llmSummarization }) => {
   const [llmStep, setLlmStep] = useState('');
+  const [successInfo, setSuccessInfo] = useState('');
+  const [improvementInfo, setImprovementInfo] = useState('');
 
-  const handleSubmit = () => {
-    // TODO: Implement feedback submission logic
-    onClose();
+  const handleSubmit = async () => {
+    const feedbackData = {
+      correlation_id: uuidv4(),
+      customer_id: 'Cust123',
+      llm_step: llmStep === 'sqlSelect' ? 'SQL' : 'Summary',
+      original_question: question,
+      llm_generated_sql_select: generatedSQL,
+      llm_summary: llmSummarization,
+      information_about_success: successInfo,
+      needed_improvements: improvementInfo,
+    };
+
+    try {
+      await submitFeedback(feedbackData);
+      onClose(); // Close dialog after successful submission
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      // Optionally handle errors here (e.g., show a notification)
+    }
   };
 
   return (
@@ -47,7 +69,7 @@ const FeedbackDialog = ({ open, onClose }) => {
           margin="normal"
           InputProps={{ readOnly: true }}
           label="The original question"
-          value="The original question"
+          value={question}
         />
 
         <Typography variant="subtitle1" gutterBottom>
@@ -59,7 +81,7 @@ const FeedbackDialog = ({ open, onClose }) => {
           margin="normal"
           InputProps={{ readOnly: true }}
           label="SQL Output"
-          value="SQL Output"
+          value={generatedSQL}
         />
 
         <Typography variant="subtitle1" gutterBottom>
@@ -71,7 +93,7 @@ const FeedbackDialog = ({ open, onClose }) => {
           margin="normal"
           InputProps={{ readOnly: true }}
           label="LLM Summary"
-          value="LLM Summary"
+          value={llmSummarization}
         />
 
         <TextField
@@ -82,6 +104,8 @@ const FeedbackDialog = ({ open, onClose }) => {
           placeholder="Write about the positive attributes of the LLM Response"
           multiline
           rows={3}
+          value={successInfo}
+          onChange={(e) => setSuccessInfo(e.target.value)}
         />
 
         <TextField
@@ -92,6 +116,8 @@ const FeedbackDialog = ({ open, onClose }) => {
           placeholder="Describe the improvements"
           multiline
           rows={3}
+          value={improvementInfo}
+          onChange={(e) => setImprovementInfo(e.target.value)}
         />
       </DialogContent>
       <DialogActions>

@@ -1,3 +1,5 @@
+// src/components/CopilotInterface.jsx
+
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material';
 import { postUserQuestion } from '../services/api';
@@ -86,7 +88,13 @@ const CopilotInterface = () => {
       >
         Feedback
       </Button>
-      <FeedbackDialog open={feedbackOpen} onClose={handleFeedbackClose} />
+      <FeedbackDialog
+        open={feedbackOpen}
+        onClose={handleFeedbackClose}
+        question={question}
+        generatedSQL={generatedSQL}
+        llmSummarization={llmSummarization}
+      />
     </Box>
   );
 };
