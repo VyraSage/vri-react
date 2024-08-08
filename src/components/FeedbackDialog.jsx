@@ -13,7 +13,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
 import { postFeedback } from '../services/api';
 
 const FeedbackDialog = ({ open, onClose, originalQuestion, generatedSQL, llmSummarization }) => {
@@ -22,6 +21,9 @@ const FeedbackDialog = ({ open, onClose, originalQuestion, generatedSQL, llmSumm
   const [improvements, setImprovements] = useState('');
 
   const handleSubmit = async () => {
+    // Use dynamic import for uuid
+    const { v4: uuidv4 } = await import('uuid');
+    
     const feedbackData = {
       correlation_id: uuidv4(),
       customer_id: "Cust123",

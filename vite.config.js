@@ -7,12 +7,16 @@ export default defineConfig({
   build: {
     outDir: path.join(__dirname, "dist"),
     rollupOptions: {
-      external: ['uuid'], // Add 'uuid' to the external dependencies
+      external: [],
     },
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
+  },
+  server: {
+    port: 8080,
+    host: '0.0.0.0',
   },
 })
