@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     outDir: path.join(__dirname, "dist"),
     rollupOptions: {
-      external: [], // Remove any external dependencies here
+      external: ['uuid'], // Add 'uuid' to the external dependencies
     },
   },
   resolve: {
