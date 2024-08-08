@@ -1,5 +1,3 @@
-// src/components/FeedbackDialog.jsx
-
 import React, { useState } from 'react';
 import {
   Dialog,
@@ -15,32 +13,32 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { submitFeedback } from '../services/api'; // Import the new API function
-import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating correlation_id
+import { v4 as uuidv4 } from 'uuid';
+import { postFeedback } from '../services/api';
 
-const FeedbackDialog = ({ open, onClose, question, generatedSQL, llmSummarization }) => {
-  const [llmStep, setLlmStep] = useState('');
-  const [successInfo, setSuccessInfo] = useState('');
-  const [improvementInfo, setImprovementInfo] = useState('');
+const FeedbackDialog = ({ open, onClose, originalQuestion, generatedSQL, llmSummarization }) => {
+  const [llmStep, setLlmStep] = useState('SQL');
+  const [likedResponse, setLikedResponse] = useState('');
+  const [improvements, setImprovements] = useState('');
 
   const handleSubmit = async () => {
     const feedbackData = {
       correlation_id: uuidv4(),
-      customer_id: 'Cust123',
-      llm_step: llmStep === 'sqlSelect' ? 'SQL' : 'Summary',
-      original_question: question,
+      customer_id: "Cust123",
+      llm_step: llmStep,
+      original_question: originalQuestion,
       llm_generated_sql_select: generatedSQL,
       llm_summary: llmSummarization,
-      information_about_success: successInfo,
-      needed_improvements: improvementInfo,
+      information_about_success: likedResponse,
+      needed_improvements: improvements
     };
 
     try {
-      await submitFeedback(feedbackData);
-      onClose(); // Close dialog after successful submission
+      await postFeedback(feedbackData);
+      onClose();
     } catch (error) {
       console.error('Error submitting feedback:', error);
-      // Optionally handle errors here (e.g., show a notification)
+      // Handle error (e.g., show error message to user)
     }
   };
 
@@ -55,8 +53,8 @@ const FeedbackDialog = ({ open, onClose, question, generatedSQL, llmSummarizatio
             value={llmStep}
             onChange={(e) => setLlmStep(e.target.value)}
           >
-            <FormControlLabel value="sqlSelect" control={<Radio />} label="SQL Select" />
-            <FormControlLabel value="llmSummary" control={<Radio />} label="LLM Summary" />
+            <FormControlLabel value="SQL" control={<Radio />} label="SQL Select" />
+            <FormControlLabel value="Summary" control={<Radio />} label="LLM Summary" />
           </RadioGroup>
         </FormControl>
 
@@ -69,7 +67,7 @@ const FeedbackDialog = ({ open, onClose, question, generatedSQL, llmSummarizatio
           margin="normal"
           InputProps={{ readOnly: true }}
           label="The original question"
-          value={question}
+          value={originalQuestion}
         />
 
         <Typography variant="subtitle1" gutterBottom>
@@ -104,8 +102,8 @@ const FeedbackDialog = ({ open, onClose, question, generatedSQL, llmSummarizatio
           placeholder="Write about the positive attributes of the LLM Response"
           multiline
           rows={3}
-          value={successInfo}
-          onChange={(e) => setSuccessInfo(e.target.value)}
+          value={likedResponse}
+          onChange={(e) => setLikedResponse(e.target.value)}
         />
 
         <TextField
@@ -116,8 +114,8 @@ const FeedbackDialog = ({ open, onClose, question, generatedSQL, llmSummarizatio
           placeholder="Describe the improvements"
           multiline
           rows={3}
-          value={improvementInfo}
-          onChange={(e) => setImprovementInfo(e.target.value)}
+          value={improvements}
+          onChange={(e) => setImprovements(e.target.value)}
         />
       </DialogContent>
       <DialogActions>

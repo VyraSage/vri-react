@@ -1,9 +1,7 @@
-// src/services/api.js
-
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_BACKEND_API_URL || 'https://vri-copilot-api-lucz5.ondigitalocean.app/vyrasage_copilot';
-const FEEDBACK_API_URL = import.meta.env.VITE_FEEDBACK_API_URL; // Load feedback API URL from .env
+const FEEDBACK_API_URL = import.meta.env.VITE_FEEDBACK_API_URL;
 
 const apiService = axios.create({
   baseURL: API_URL,
@@ -21,9 +19,13 @@ export const postUserQuestion = async (question) => {
   }
 };
 
-export const submitFeedback = async (feedbackData) => {
+export const postFeedback = async (feedbackData) => {
   try {
-    const response = await axios.post(FEEDBACK_API_URL, feedbackData);
+    const response = await axios.post(FEEDBACK_API_URL, feedbackData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     throw error;
