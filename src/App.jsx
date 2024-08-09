@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import CopilotInterface from './components/CopilotInterface';
+import PromptCards from './components/PromptCards';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         bgcolor: 'background.default',
       }}
     >
+      <PromptCards />
       <CopilotInterface />
     </Box>
   );

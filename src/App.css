@@ -5,3 +5,7 @@ body {
   background-color: #f5f5f5; /* Light background for better contrast */
   font-family: 'Roboto', sans-serif; /* MUI's default font */
 }
+
+.MuiCard-root:hover {
+  background-color: #e0e0e0; /* Adjust color as needed */
+}
