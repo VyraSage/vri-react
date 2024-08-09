@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Card, CardContent, Typography, Pagination, Box } from '@mui/material';
 import prompts from '../prompts/prompts.json'; // Import prompts data
 
-const PromptCards = () => {
+const PromptCards = ({ onPromptSelect }) => {
   const [page, setPage] = useState(1);
   const itemsPerPage = 3;
   const totalItems = prompts.length; // Use the length of prompts data
@@ -12,6 +12,10 @@ const PromptCards = () => {
     setPage(value);
   };
 
+  const handleCardClick = (prompt) => {
+    onPromptSelect(prompt); // This function will handle setting the input and submitting
+  };
+
   const cards = useMemo(() => {
     return prompts
       .slice((page - 1) * itemsPerPage, page * itemsPerPage)
@@ -19,6 +23,7 @@ const PromptCards = () => {
         <Card 
           key={prompt.id} // Assuming each prompt has a unique 'id' field
           sx={{ maxWidth: 300, m: 1, ':hover': { backgroundColor: 'grey.300' } }}
+          onClick={() => handleCardClick(prompt.Prompt)}
         >
           <CardContent>
             <Typography variant="h6" component="div">

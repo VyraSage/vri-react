@@ -3,8 +3,7 @@ import { TextField, Button, Box, Typography, CircularProgress } from '@mui/mater
 import { postUserQuestion } from '../services/api';
 import FeedbackDialog from './FeedbackDialog';
 
-const CopilotInterface = () => {
-  const [question, setQuestion] = useState('');
+const CopilotInterface = ({ question, setQuestion }) => {
   const [generatedSQL, setGeneratedSQL] = useState('');
   const [llmSummarization, setLlmSummarization] = useState('');
   const [loading, setLoading] = useState(false);
