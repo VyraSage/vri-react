@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import CopilotInterface from './components/CopilotInterface'; // Changed from CoPilotInterface to CopilotInterface
+import CopilotInterface from './components/CopilotInterface'; 
 import PromptCards from './components/PromptCards';
 
 function App() {
@@ -23,8 +23,9 @@ function App() {
         bgcolor: 'background.default',
       }}
     >
-      <PromptCards onPromptSelect={handlePromptSelect} />
+      
       <CopilotInterface question={question} setQuestion={setQuestion} />
+      <PromptCards onPromptSelect={handlePromptSelect} />
     </Box>
   );
 }
