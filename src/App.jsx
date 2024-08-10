@@ -1,6 +1,8 @@
+// src/App.jsx
+
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import CopilotInterface from './components/CoPilotInterface'; // Updated casing
+import CopilotInterface from './components/CopilotInterface'; // Changed from CoPilotInterface to CopilotInterface
 import PromptCards from './components/PromptCards';
 
 function App() {
@@ -8,7 +10,6 @@ function App() {
 
   const handlePromptSelect = (prompt) => {
     setQuestion(prompt);
-    // Optionally, trigger automatic submission here if needed
   };
 
   return (
