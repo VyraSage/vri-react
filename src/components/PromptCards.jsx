@@ -26,7 +26,7 @@ const PromptCards = ({ onPromptSelect }) => {
           onClick={() => handleCardClick(prompt.Prompt)}
         >
           <CardContent>
-            <Typography variant="h6" component="div">
+            <Typography variant="subtitle1" component="div">
               {/* Display the Prompt */}
               {prompt.Prompt}
             </Typography>
