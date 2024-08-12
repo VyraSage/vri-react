@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  CircularProgress,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { postUserQuestion } from '../services/api';
 import FeedbackDialog from './FeedbackDialog';
 
@@ -57,16 +67,28 @@ const CopilotInterface = ({ question, setQuestion }) => {
       >
         {loading ? <CircularProgress size={24} /> : 'Submit'}
       </Button>
-      <TextField
-        fullWidth
-        label="Generated SQL"
-        variant="outlined"
-        value={generatedSQL}
-        multiline
-        rows={4}
-        InputProps={{ readOnly: true }}
-        margin="normal"
-      />
+
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="generated-sql-content"
+          id="generated-sql-header"
+        >
+          <Typography>Generated SQL</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <TextField
+            fullWidth
+            variant="outlined"
+            value={generatedSQL}
+            multiline
+            rows={4}
+            InputProps={{ readOnly: true }}
+            margin="normal"
+          />
+        </AccordionDetails>
+      </Accordion>
+
       <TextField
         fullWidth
         label="LLM Summarization"
