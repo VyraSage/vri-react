@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Box, Paper } from '@mui/material';
+import { useChatContext } from '../context/ChatContext';
 import ChatResponseProcessing from './ChatResponseProcessing';
 import ChatResponse from './ChatResponse';
 import UserInputContainer from './UserInputContainer';
+import PromptCards from './PromptCards'; // Use PromptCards for initial state
 
 const ChatContainer = () => {
+  const { messages } = useChatContext();
+  const chatEndRef = useRef(null);
+
+  // Auto-scroll to the latest message
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <Paper
       sx={{
@@ -20,9 +30,15 @@ const ChatContainer = () => {
       }}
     >
       <Box sx={{ flexGrow: 1, overflowY: 'auto', paddingBottom: 2 }}>
-        <ChatResponse message="Hello, how can I assist you today?" isBot />
-        <ChatResponse message="I have a question about your services." isBot={false} />
+        {messages.length === 0 ? (
+          <PromptCards />
+        ) : (
+          messages.map((msg, index) => (
+            <ChatResponse key={index} message={msg.content[0].text} isBot={msg.role === 'assistant'} />
+          ))
+        )}
         <ChatResponseProcessing />
+        <div ref={chatEndRef} />
       </Box>
       <UserInputContainer />
     </Paper>

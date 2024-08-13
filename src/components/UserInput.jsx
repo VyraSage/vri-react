@@ -1,13 +1,21 @@
 import React from 'react';
 import { TextField } from '@mui/material';
 
-const UserInput = () => {
+const UserInput = ({ value, onChange, onSubmit }) => {
   return (
     <TextField
       variant="outlined"
-      placeholder="Type your message..."
+      placeholder="Place your message here for the VRI CoPilot"
       fullWidth
       sx={{ marginRight: 2 }}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      onKeyPress={(e) => {
+        if (e.key === 'Enter') {
+          onSubmit();
+        }
+      }}
+      inputProps={{ maxLength: 1000 }}
     />
   );
 };

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import App from './App.jsx'
+import ChatProvider from './context/ChatContext'; // Import ChatProvider
 
 const theme = createTheme({
   palette: {
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <App />
+      <ChatProvider> {/* Wrap App with ChatProvider */}
+        <App />
+      </ChatProvider>
     </ThemeProvider>
   </React.StrictMode>,
 )
