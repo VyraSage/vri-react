@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
 import CopilotInterface from './components/CopilotInterface';
 import PromptCards from './components/PromptCards';
-import VriCopilotPage from './components/VriCopilotPage'; // Import the new page component
+import VriCopilotPage from './components/VriCopilotPage'; // Import the VriCopilotPage
 
 function App() {
   const [question, setQuestion] = useState('');
@@ -33,7 +33,7 @@ function App() {
               <PromptCards onPromptSelect={handlePromptSelect} />
             </>
           } />
-          <Route path="/vri-copilot" element={<VriCopilotPage />} /> {/* Add the new route */}
+          <Route path="/vri-copilot" element={<VriCopilotPage />} /> {/* Use the VriCopilotPage */}
         </Routes>
       </Box>
     </Router>

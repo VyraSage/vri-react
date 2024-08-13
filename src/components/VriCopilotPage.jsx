@@ -1,20 +1,21 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import ChatContainer from './ChatContainer';
 
 const VriCopilotPage = () => {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        minHeight: '100vh',
+        padding: 2,
         bgcolor: 'background.default',
       }}
     >
-      <Typography variant="h2">VRI Copilot Assistant</Typography>
-      <Typography variant="body1">Hello World</Typography>
+      <ChatContainer />
     </Box>
   );
 };
