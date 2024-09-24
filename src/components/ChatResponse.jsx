@@ -17,7 +17,7 @@ const ChatResponse = ({ message, isBot }) => {
           color: isBot ? 'text.primary' : 'text.secondary',
           padding: 1,
           borderRadius: 2,
-          maxWidth: '70%',
+          maxWidth: '100%',
           wordWrap: 'break-word',
         }}
       >

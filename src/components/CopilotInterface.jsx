@@ -46,7 +46,7 @@ const CopilotInterface = ({ question, setQuestion }) => {
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 800, p: 2 }}>
+    <Box sx={{ width: '100%', maxWidth: 1300, p: 2 }}>
       <Typography variant="h4" gutterBottom>
         Vyrasage Co-Pilot
       </Typography>
@@ -82,7 +82,7 @@ const CopilotInterface = ({ question, setQuestion }) => {
             variant="outlined"
             value={generatedSQL}
             multiline
-            rows={4}
+            rows={6}
             InputProps={{ readOnly: true }}
             margin="normal"
           />
@@ -95,7 +95,7 @@ const CopilotInterface = ({ question, setQuestion }) => {
         variant="outlined"
         value={llmSummarization}
         multiline
-        rows={20}
+        rows={8}
         InputProps={{ readOnly: true }}
         margin="normal"
       />
