@@ -95,7 +95,7 @@ const CopilotInterface = ({ question, setQuestion }) => {
         variant="outlined"
         value={llmSummarization}
         multiline
-        rows={4}
+        rows={20}
         InputProps={{ readOnly: true }}
         margin="normal"
       />

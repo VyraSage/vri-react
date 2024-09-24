@@ -23,7 +23,7 @@ const ChatContainer = () => {
         justifyContent: 'space-between',
         height: '100vh',
         width: '100%',
-        maxWidth: 800,
+        maxWidth: 1300,
         margin: '0 auto',
         padding: 2,
         boxSizing: 'border-box',
