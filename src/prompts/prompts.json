@@ -1,41 +1,51 @@
 [
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "What are the top 5 performing retail locations in terms of total gross sales over the past year?",
         "Prompt_value": "This prompt provides insights into which retail locations are generating the most revenue, helping executives focus on successful strategies and explore opportunities for growth."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "Identify customers who have not made a purchase in the last 6 months but were active previously. What marketing campaigns were they last engaged with?",
         "Prompt_value": "This prompt helps identify potential churn by highlighting customers who have stopped purchasing, allowing for targeted re-engagement strategies through specific marketing campaigns."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "Analyze the relationship between customer engagement status and their average order value (AOV) over time. Are active customers spending more than those who are attrited?",
         "Prompt_value": "This prompt helps understand spending patterns among different customer engagement segments, enabling targeted strategies to increase spending among active customers and re-engage attrited ones."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "Which SKU groups have shown the highest increase in sales over the last quarter? Analyze their contribution to the overall sales growth.",
         "Prompt_value": "This prompt identifies high-performing product categories, allowing businesses to focus on expanding successful product lines and optimizing inventory management."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "Determine the impact of discounts on gross sales and profit across different sales channels. Are there channels where discounts drive more sales?",
         "Prompt_value": "This prompt provides insights into the effectiveness of discount strategies across sales channels, guiding decisions on where to focus promotional efforts for maximum impact."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "What is the correlation between customer rank and their preferred sales channel? Do higher-ranked customers prefer a specific channel?",
         "Prompt_value": "This prompt uncovers preferences of high-value customers, allowing businesses to tailor channel-specific marketing and service strategies to enhance the customer experience."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "Evaluate the effect of shipping surcharges on purchase behavior. Are customers less likely to purchase items with higher surcharges?",
         "Prompt_value": "This prompt helps assess how shipping costs influence buying decisions, providing insights for pricing strategies and shipping policies to optimize sales."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "Identify trends in customer acquisition, retention, attrition, and reactivation over the past year. Which line of business has the highest retention rate?",
         "Prompt_value": "This prompt offers a comprehensive view of customer lifecycle stages across business lines, aiding in the development of strategies to enhance retention and acquisition efforts."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "Compare the effectiveness of different marketing channels based on their conversion rates in recent campaigns. Which channels yield the highest returns on investment?",
         "Prompt_value": "This prompt evaluates marketing channel performance, helping allocate budgets effectively to channels that deliver the best conversion rates and ROI."
     },
     {
+        "short_prompt" : "Short Prompt ",
         "Prompt": "What are the most common purchase patterns among customers with a rank of 4 or higher? Do they prefer specific products or shopping channels?",
         "Prompt_value": "Reveals purchasing habits of high-ranked customers, enabling personalized marketing efforts and product recommendations to enhance customer satisfaction and loyalty."
     }
