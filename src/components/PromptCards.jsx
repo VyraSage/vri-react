@@ -38,7 +38,7 @@ const PromptCards = ({ onPromptSelect }) => {
       .map((prompt) => (
         <Card 
           key={prompt.id} // Assuming each prompt has a unique 'id' field
-          sx={{ maxWidth: 300, m: 1, ':hover': { backgroundColor: 'grey.300' } }}
+          sx={{ maxWidth: 225, m: 1, ':hover': { backgroundColor: 'grey.300' } }}
           onClick={() => handleCardClick(prompt)}
         >
           <CardContent>
