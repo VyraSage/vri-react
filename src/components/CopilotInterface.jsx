@@ -1,3 +1,5 @@
+// src/components/CopilotInterface.jsx
+
 import React, { useState } from 'react';
 import {
   TextField,
@@ -12,12 +14,18 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { postUserQuestion } from '../services/api';
 import FeedbackDialog from './FeedbackDialog';
+import { useLocation } from 'react-router-dom'; // Import useLocation
 
 const CopilotInterface = ({ question, setQuestion }) => {
   const [generatedSQL, setGeneratedSQL] = useState('');
   const [llmSummarization, setLlmSummarization] = useState('');
   const [loading, setLoading] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+
+  // Get the query parameters from the URL
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const showGeneratedSql = searchParams.get('test') === 'true';
 
   const handleQuestionChange = (event) => {
     setQuestion(event.target.value);
@@ -68,26 +76,28 @@ const CopilotInterface = ({ question, setQuestion }) => {
         {loading ? <CircularProgress size={24} /> : 'Submit'}
       </Button>
 
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="generated-sql-content"
-          id="generated-sql-header"
-        >
-          <Typography>Generated SQL</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <TextField
-            fullWidth
-            variant="outlined"
-            value={generatedSQL}
-            multiline
-            rows={6}
-            InputProps={{ readOnly: true }}
-            margin="normal"
-          />
-        </AccordionDetails>
-      </Accordion>
+      {showGeneratedSql && (
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="generated-sql-content"
+            id="generated-sql-header"
+          >
+            <Typography>Generated SQL</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <TextField
+              fullWidth
+              variant="outlined"
+              value={generatedSQL}
+              multiline
+              rows={6}
+              InputProps={{ readOnly: true }}
+              margin="normal"
+            />
+          </AccordionDetails>
+        </Accordion>
+      )}
 
       <TextField
         fullWidth
