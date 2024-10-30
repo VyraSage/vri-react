@@ -56,7 +56,7 @@ const CopilotInterface = ({ question, setQuestion }) => {
   return (
     <Box sx={{ width: '100%', maxWidth: 1300, p: 2 }}>
       <Typography variant="h4" gutterBottom>
-        Vyrasage Co-Pilot
+        Retlia Co-Pilot
       </Typography>
       <TextField
         fullWidth
