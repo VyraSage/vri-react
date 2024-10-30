@@ -6,12 +6,7 @@
     },
     {
         "short_prompt" : "Dormant Customers",
-        "Prompt": "Identify customers who have not made a purchase in the last 6 months but were active previously",
-        "Prompt_value": "Values is had...."
-    },
-    {
-        "short_prompt" : "Previously Active",
-        "Prompt": "Find customers who were previously active, to target with re-engagement campaigns",
+        "Prompt": "Identify customers who have not made a purchase in the last 6 months but were active previously, to target with re-engagement campaigns",
         "Prompt_value": "Values is had...."
     },
     {
