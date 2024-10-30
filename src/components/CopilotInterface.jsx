@@ -14,7 +14,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { postUserQuestion } from '../services/api';
 import FeedbackDialog from './FeedbackDialog';
-import { useLocation } from 'react-router-dom'; // Import useLocation
+import { useLocation } from 'react-router-dom';
 
 const CopilotInterface = ({ question, setQuestion }) => {
   const [generatedSQL, setGeneratedSQL] = useState('');
@@ -26,6 +26,7 @@ const CopilotInterface = ({ question, setQuestion }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const showGeneratedSql = searchParams.get('test') === 'true';
+  const hideHeader = searchParams.get('chat') === 'true';  // New line to check for chat parameter
 
   const handleQuestionChange = (event) => {
     setQuestion(event.target.value);
@@ -55,9 +56,11 @@ const CopilotInterface = ({ question, setQuestion }) => {
 
   return (
     <Box sx={{ width: '100%', maxWidth: 1300, p: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        Retlia Co-Pilot
-      </Typography>
+      {!hideHeader && (  // Conditional rendering of the header
+        <Typography variant="h4" gutterBottom>
+          Retlia Co-Pilot
+        </Typography>
+      )}
       <TextField
         fullWidth
         label="Ask a question"
