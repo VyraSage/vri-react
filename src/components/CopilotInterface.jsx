@@ -57,7 +57,7 @@ const CopilotInterface = ({ question, setQuestion }) => {
     <Box sx={{ width: '100%', maxWidth: 1300, p: 2 }}>
       {!hideHeader && (
         <Typography variant="h4" gutterBottom>
-          Retlia Co-Pilot
+          Retlia AI Assistant
         </Typography>
       )}
       <TextField
