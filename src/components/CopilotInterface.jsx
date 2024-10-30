@@ -1,6 +1,5 @@
-// src/components/CopilotInterface.jsx
-
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import {
   TextField,
   Button,
@@ -10,6 +9,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Paper,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { postUserQuestion } from '../services/api';
@@ -22,11 +22,10 @@ const CopilotInterface = ({ question, setQuestion }) => {
   const [loading, setLoading] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
 
-  // Get the query parameters from the URL
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const showGeneratedSql = searchParams.get('test') === 'true';
-  const hideHeader = searchParams.get('chat') === 'true';  // New line to check for chat parameter
+  const hideHeader = searchParams.get('chat') === 'true';
 
   const handleQuestionChange = (event) => {
     setQuestion(event.target.value);
@@ -56,7 +55,7 @@ const CopilotInterface = ({ question, setQuestion }) => {
 
   return (
     <Box sx={{ width: '100%', maxWidth: 1300, p: 2 }}>
-      {!hideHeader && (  // Conditional rendering of the header
+      {!hideHeader && (
         <Typography variant="h4" gutterBottom>
           Retlia Co-Pilot
         </Typography>
@@ -102,16 +101,35 @@ const CopilotInterface = ({ question, setQuestion }) => {
         </Accordion>
       )}
 
-      <TextField
-        fullWidth
-        label="LLM Summarization"
-        variant="outlined"
-        value={llmSummarization}
-        multiline
-        rows={8}
-        InputProps={{ readOnly: true }}
-        margin="normal"
-      />
+      <Paper 
+        variant="outlined" 
+        sx={{ 
+          p: 2, 
+          mt: 2, 
+          mb: 2,
+          minHeight: '200px',
+          backgroundColor: '#fafafa',
+          '& pre': {
+            backgroundColor: '#f0f0f0',
+            padding: '8px',
+            borderRadius: '4px',
+            overflowX: 'auto'
+          },
+          '& code': {
+            backgroundColor: '#f0f0f0',
+            padding: '2px 4px',
+            borderRadius: '4px'
+          }
+        }}
+      >
+        <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+          LLM Summarization
+        </Typography>
+        <ReactMarkdown>
+          {llmSummarization}
+        </ReactMarkdown>
+      </Paper>
+
       <Button
         variant="contained"
         color="secondary"
